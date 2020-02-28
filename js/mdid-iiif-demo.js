@@ -1,0 +1,81 @@
+$(document).ready(function() {
+  var viewer = OpenSeadragon({
+    id: "openseadragon",
+    maxZoomPixelRatio: 2,
+    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
+    tileSources: "https://fitdil.fitnyc.edu/media/iiif/137849/lb_sc_000741/info.json",
+    showNavigator: true,
+    collectionMode: true,
+    collectionRows: 1,
+    collectionTileMargin: 10,
+    collectionTileSize: 256
+  });
+  viewer.world.addHandler('add-item', function(event) {
+    var items = event.eventSource['_items'];
+    $('.thumb').remove();
+    for (var i in items) {
+      var id = items[i].source['@id'];
+      var thumbURL = id.replace("iiif", "thumb");
+      var thumbItem = `
+      <li class="list-group-item thumb">
+        <button type="button" class="close" aria-label="Close" data-index="` + i + `">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="media">
+          <img src="` + thumbURL + `" class="mr-3 align-self-center">
+          <div class="media-body text-muted align-self-center">
+            @id: ` + id + `
+          </div>
+        </div>
+      </li>
+      `;
+      $('.list-group').append(thumbItem);
+    }
+    $('.close').click(function() {
+      var thisItem = viewer.world.getItemAt($(this).data('index'));
+      viewer.world.removeItem(thisItem);
+      $(this).parent().remove();
+      viewer.viewport.goHome();
+    });
+    var tiledImage = event.item;
+    tiledImage.addOnceHandler('fully-loaded-change', function() {
+      viewer.viewport.goHome();
+    });
+  });
+  viewer.world.addHandler('remove-item', function(event) {
+    var items = event.eventSource['_items'];
+    $('.thumb').remove();
+    for (var i in items) {
+      var id = items[i].source['@id'];
+      var thumbURL = id.replace("iiif", "thumb");
+      var thumbItem = `
+      <li class="list-group-item thumb">
+        <button type="button" class="close" aria-label="Close" data-index="` + i + `">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="media">
+          <img src="` + thumbURL + `" class="mr-3 align-self-center">
+          <div class="media-body text-muted align-self-center">
+            @id: ` + id + `
+          </div>
+        </div>
+      </li>
+      `;
+      $('.list-group').append(thumbItem);
+    }
+    $('.close').click(function() {
+      var thisItem = viewer.world.getItemAt($(this).data('index'));
+      viewer.world.removeItem(thisItem);
+      $(this).parent().remove();
+      viewer.viewport.goHome();
+    });
+  });
+  $('#add-image').submit(function(event) {
+    event.preventDefault();
+    var endpoint = $(this).find('input').val();
+    viewer.addTiledImage({
+      tileSource: endpoint
+    });
+    $(this).find('input').val('');
+  });
+});

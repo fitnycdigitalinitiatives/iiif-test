@@ -1,41 +1,48 @@
 <!doctype html>
 <html lang="en" class="h-100">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js" integrity="sha384-AM+psHv4xzZyLm3U81fe00OjiBes4PZ/1GhPFO3dwBE40+cUfCBmy1wdr+gJgyRa" crossorigin="anonymous"></script>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Hello, world!</title>
-  </head>
-  <body class="h-100">
-    <div class="container h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-md-10">
-          <div class="embed-responsive embed-responsive-4by3">
-            <div id="loris" class="openseadragon embed-responsive-item bg-dark"></div>
-            <script type="text/javascript">
-              var viewer = OpenSeadragon({
-                  id: "loris",
-                  maxZoomPixelRatio: 2,
-                  prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/images/",
-                  tileSources: "https://fitdil.fitnyc.edu/media/iiif/137849/lb_sc_000741/info.json",
-                  showNavigator:true
-              });
-          </script>
-        </div>
-        </div>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Hello, world!</title>
+</head>
+
+<body class="h-100">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-md-8 col-lg-9 h-100 px-md-0">
+        <div id="openseadragon" class="h-100 bg-dark"></div>
+      </div>
+      <div class="col-md-4 col-lg-3 h-100 px-md-0">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <form id="add-image">
+              <label for="iiifEndpoint">Add New Image</label>
+              <div class="form-row">
+                <div class="form-group col">
+                  <input type="url" class="form-control" id="iiifEndpoint" placeholder="IIIF Endpoint (info.json)">
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Load</button>
+              </div>
+            </form>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- Viewer JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js" integrity="sha384-C+QdRlsessFJSfl4TGrClgI1cQGHMbDYnH9ve41f76HbqUnzvf+4d8RikThyVGmm" crossorigin="anonymous"></script>
+  <script src="js/mdid-iiif-demo.js"></script>
+</body>
 
-
-  </body>
 </html>
