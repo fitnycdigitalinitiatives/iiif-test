@@ -1,5 +1,9 @@
 #viewer {
-  height: calc(100% - 56px);
+  padding-top: 56px;
+}
+
+#nav-column {
+  position: fixed;
 }
 
 #nav-list.collapse {
@@ -8,7 +12,11 @@
 
 @media (min-width: 992px) {
   #viewer {
-    height: 100%;
+    padding-top: 0;
+  }
+
+  #nav-column {
+    position: static;
   }
 
   #nav-list.collapse {
