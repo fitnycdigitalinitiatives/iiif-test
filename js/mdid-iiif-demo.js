@@ -5,6 +5,8 @@ $(document).ready(function() {
     prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
     tileSources: "https://fitdil.fitnyc.edu/media/iiif/9227/ls0000165/info.json",
     showNavigator: true,
+    navigatorSizeRatio: 0.1,
+    controlsFadeDelay: 1000,
     collectionMode: true,
     collectionRows: 4,
     collectionLayout: 'vertical'
