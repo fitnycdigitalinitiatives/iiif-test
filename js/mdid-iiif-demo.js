@@ -3,19 +3,18 @@ $(document).ready(function() {
     id: "openseadragon",
     maxZoomPixelRatio: 2,
     prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-    tileSources: "https://fitdil.fitnyc.edu/media/iiif/137849/lb_sc_000741/info.json",
+    tileSources: "https://fitdil.fitnyc.edu/media/iiif/9227/ls0000165/info.json",
     showNavigator: true,
     collectionMode: true,
-    collectionRows: 1,
-    collectionTileMargin: 10,
-    collectionTileSize: 256
+    collectionRows: 4,
+    collectionLayout: 'vertical'
   });
   viewer.world.addHandler('add-item', function(event) {
     var items = event.eventSource['_items'];
     $('.thumb').remove();
     for (var i in items) {
       var id = items[i].source['@id'];
-      var thumbURL = id.replace("iiif", "thumb");
+      var thumbURL = id + '/full/100,/0/default.jpg';
       var thumbItem = `
       <li class="list-group-item thumb">
         <button type="button" class="close" aria-label="Close" data-index="` + i + `">
@@ -38,7 +37,7 @@ $(document).ready(function() {
       viewer.viewport.goHome();
     });
     var tiledImage = event.item;
-    tiledImage.addOnceHandler('fully-loaded-change', function() {
+    viewer.addOnceHandler('reset-size', function() {
       viewer.viewport.goHome();
     });
   });
@@ -47,7 +46,7 @@ $(document).ready(function() {
     $('.thumb').remove();
     for (var i in items) {
       var id = items[i].source['@id'];
-      var thumbURL = id.replace("iiif", "thumb");
+      var thumbURL = id + '/full/100,/0/default.jpg';
       var thumbItem = `
       <li class="list-group-item thumb">
         <button type="button" class="close" aria-label="Close" data-index="` + i + `">
@@ -70,11 +69,27 @@ $(document).ready(function() {
       viewer.viewport.goHome();
     });
   });
+  viewer.addHandler('add-item-failed', function(event) {
+    var alert = `
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Derp!</strong> Invalid IIIF Endpoint. Please enter a url that leads to a valid info.json file.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    `;
+    $('#add-image').after(alert);
+  });
   $('#add-image').submit(function(event) {
     event.preventDefault();
     var endpoint = $(this).find('input').val();
+    const url = new URL(endpoint);
+    if (url.pathname.includes("/data/record/")) {
+      endpoint = endpoint.replace("/data/record/", "/media/iiif/") + "info.json"
+    }
     viewer.addTiledImage({
-      tileSource: endpoint
+      tileSource: endpoint,
+      preload: true
     });
     $(this).find('input').val('');
   });
