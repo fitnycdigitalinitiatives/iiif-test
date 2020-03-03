@@ -3,7 +3,7 @@ $(document).ready(function() {
     id: "openseadragon",
     maxZoomPixelRatio: 2,
     prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-    tileSources: "https://fitdil.fitnyc.edu/media/iiif/9227/ls0000165/info.json",
+    tileSources: "https://fitdil.fitnyc.edu/media/iiif/136269/lb_sc_nef_000006/info.json",
     showNavigator: true,
     navigatorSizeRatio: 0.1,
     controlsFadeDelay: 1000,
